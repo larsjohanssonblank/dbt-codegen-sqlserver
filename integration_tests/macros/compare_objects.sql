@@ -9,14 +9,14 @@
     Expected did not match actual
 
     -----------
-    Expected:
-    -----------
-    --->{{ expected | trim }}<---
-
-    -----------
     Actual:
     -----------
-    --->{{ base_model | trim }}<---
+    --->{{ actual_object }}<---
+
+    -----------
+    Expected:
+    -----------
+    --->{{ expected_object }}<---
 
     {% endset %}
 
