@@ -28,6 +28,7 @@ select * from renamed
 {% if execute %}
 
 {{ log(base_model_sql, info=True) }}
+{% do return(base_model_sql) %}
 
 {% endif %}
 {% endmacro %}
