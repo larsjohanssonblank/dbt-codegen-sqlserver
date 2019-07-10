@@ -18,12 +18,16 @@
 ---
 {% macro generate_source(schema_name, database_name=target.database, generate_columns=False) %}
 
+{% if target.type == 'snowflake' %}
+  {% set schema_name = schema_name | upper %}
+{% endif %}
+
 {% set sources_yaml=[] %}
 
 {% do sources_yaml.append('version: 2') %}
 {% do sources_yaml.append('') %}
 {% do sources_yaml.append('sources:') %}
-{% do sources_yaml.append('  - name: ' ~ schema_name) %}
+{% do sources_yaml.append('  - name: ' ~ schema_name | lower) %}
 {% do sources_yaml.append('    tables:') %}
 
 {% set tables=codegen.get_tables_in_schema(schema_name) %}
