@@ -3,7 +3,7 @@
 
     {# pass #}
 
-{% elif object_1 != object_2 %}
+{% elif actual_object != expected_object %}
 
     {% set msg %}
     Expected did not match actual
