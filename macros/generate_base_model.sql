@@ -15,7 +15,7 @@ renamed as (
 
     select
         {%- for column in column_names %}
-        {{ column }}{{"," if not loop.last}}
+        {{ column | lower }}{{"," if not loop.last}}
         {%- endfor %}
 
     from source

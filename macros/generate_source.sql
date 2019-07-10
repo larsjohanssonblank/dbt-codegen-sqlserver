@@ -1,16 +1,15 @@
 {% macro get_tables_in_schema(schema_name) %}
+
     {% set tables=dbt_utils.get_tables_by_prefix(
             schema=schema_name,
             prefix=''
         )
     %}
 
-    {% set table_list=[] %}
+    {% set table_list= tables | map(attribute = 'identifier') %}
 
-    {% for table in tables %}
-        {% do table_list.append(table.identifier) %}
-    {% endfor %}
     {{ return(table_list | sort) }}
+
 {% endmacro %}
 
 
