@@ -2,13 +2,16 @@
 {% set raw_schema = generate_schema_name('raw_data') %}
 
 -- test default args
-{% set source = codegen.generate_source(raw_schema) %}
+{% set actual_source_yaml = codegen.generate_source(raw_schema) %}
 
-{% set expected %}
+{% set expected_source_yaml %}
+version: 2
 
-... add expected here ..
-
+sources:
+  - name: {{ raw_schema | trim }}
+    tables:
+      - name: data__a_relation
 {% endset %}
 
 
-... compare actual to expected here ...
+{{ assert_equal (actual_source_yaml | trim, expected_source | trim) }}
