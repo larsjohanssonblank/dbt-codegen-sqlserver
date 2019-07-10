@@ -20,7 +20,9 @@
 
     {% endset %}
 
-    {% do exceptions.raise_compiler_error(msg) %}
+    {{ log(msg, info=True) }}
+
+    select 'fail'
 
 {% else %}
 

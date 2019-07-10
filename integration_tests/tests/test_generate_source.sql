@@ -14,4 +14,4 @@ sources:
 {% endset %}
 
 
-{{ assert_equal (actual_source_yaml | trim, expected_source | trim) }}
+{{ assert_equal (actual_source_yaml | trim, expected_source_yaml | trim) }}

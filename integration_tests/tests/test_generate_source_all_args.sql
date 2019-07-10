@@ -1,7 +1,7 @@
 {% set raw_schema = generate_schema_name('raw_data') %}
 
 -- test all args
-{% set source = codegen.generate_source(
+{% set actual_source_yaml = codegen.generate_source(
     schema_name=raw_schema,
     database_name=target.database,
     generate_columns=True
@@ -21,4 +21,4 @@ sources:
 
 {% endset %}
 
-{{ assert_equal (actual_source_yaml | trim, expected_source | trim) }}
+{{ assert_equal (actual_source_yaml | trim, expected_source_yaml | trim) }}
