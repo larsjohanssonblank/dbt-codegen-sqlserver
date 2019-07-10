@@ -17,3 +17,6 @@ clean-targets:
 
 seeds:
   schema: raw_data
+
+quoting:
+  schema: true

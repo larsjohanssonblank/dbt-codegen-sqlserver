@@ -9,6 +9,8 @@
     {% set table_list= tables | map(attribute = 'identifier') %}
 
     {{ return(table_list | sort) }}
+    {{ log("*** table list ***", info=True) }}
+    {{ log(table_list, info=True) }}
 
 {% endmacro %}
 
@@ -27,7 +29,7 @@
 {% set tables=codegen.get_tables_in_schema(schema_name) %}
 
 {% for table in tables %}
-    {% do sources_yaml.append('      - name: ' ~ table) %}
+    {% do sources_yaml.append('      - name: ' ~ table | lower ) %}
 
     {% if generate_columns %}
     {% do sources_yaml.append('        columns:') %}
@@ -41,7 +43,7 @@
         {% set columns=adapter.get_columns_in_relation(table_relation) %}
 
         {% for column in columns %}
-            {% do sources_yaml.append('          - name: ' ~ column.name) %}
+            {% do sources_yaml.append('          - name: ' ~ column.name | lower ) %}
         {% endfor %}
             {% do sources_yaml.append('') %}
 
