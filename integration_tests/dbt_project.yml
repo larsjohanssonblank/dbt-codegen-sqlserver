@@ -1,8 +1,8 @@
 
-name: 'codegen_integration_tests'
+name: 'codegen_sqlserver_integration_tests'
 version: '1.0'
 
-profile: 'codegen_integration_tests'
+profile: 'codegen_sqlserver_integration_tests'
 
 source-paths: ["models"]
 analysis-paths: ["analysis"]
