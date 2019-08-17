@@ -1,4 +1,6 @@
-# dbt-codegen
+# dbt-codegen-sqlserver
+
+A sqlserver-version of [dbt-codegen](https://github.com/fishtown-analytics/dbt-codegen)
 
 Macros that generate dbt code, and log it to the command line.
 
@@ -18,76 +20,37 @@ column names to your source definition.
 1. Use the macro (in dbt Develop, in a scratch file, or in a run operation) like
   so:
 ```
-{{ codegen.generate_source('raw_jaffle_shop') }}
+{{ codegen.generate_source('SalesLT') }}
 ```
 Alternatively, call the macro as an [operation](https://docs.getdbt.com/docs/using-operations):
 ```
-$ dbt run-operation generate_source --args 'schema_name: raw_jaffle_shop'
+$ dbt run-operation generate_source --args 'schema_name: SalesLT'
 ```
 or
 ```
 # for multiple arguments, use the dict syntax
-$ dbt run-operation generate_source --args '{"schema_name": "raw_jaffle_shop", "database_name": "raw"}'
+$ dbt run-operation generate_source_sqlserver --args "{schema_name: SalesLT, database_name: AdventureWorks, generate_columns: TRUE}"
 ```
 2. The YAML for the source will be logged to the command line
 ```txt
 version: 2
 
 sources:
-  - name: raw_jaffle_shop
+  - name: saleslt
     tables:
-      - name: customers
-      - name: orders
-      - name: payments
+      - name: address
+        columns:
+          - name: addressid
+          - name: addressline1
+          - name: addressline2
+          - name: city
+          - name: stateprovince
+          - name: countryregion
+          - name: postalcode
+          - name: rowguid
+          - name: modifieddate
+
+      - name: customer
+        columns:
 ```
 3. Paste the output in to a schema `.yml` file, and refactor as required.
-
-## generate_base_model ([source](macros/generate_base_model.sql))
-This macro generates the SQL for a base model, which you can then paste into a
-model.
-
-### Arguments:
-* `source_name` (required): The source you wish to generate base model SQL for.
-* `table_name` (required): The source table you wish to generate base model SQL for.
-
-
-### Usage:
-1. Create a source for the table you wish to create a base model on top of.
-2. Use the macro (in dbt Develop, or in a scratch file), and compile your code
-```
-{{
-  codegen.generate_base_model(
-    source_name='raw_jaffle_shop',
-    table_name='customers'
-  )
-}}
-```
-Alternatively, call the macro as an [operation](https://docs.getdbt.com/docs/using-operations):
-```
-$ dbt run-operation generate_base_model --args '{"source_name": "raw_jaffle_shop", "table_name": "customers"}'
-```
-
-3. The SQL for a base model will be logged to the command line
-```txt
-with source as (
-
-    select * from {{ source('raw_jaffle_shop', 'customers') }}
-
-),
-
-renamed as (
-
-    select
-        id,
-        first_name,
-        last_name,
-        email,
-        _elt_updated_at
-
-    from source
-
-)
-
-select * from renamed
-```
-4. Paste the output in to a model, and refactor as required.
