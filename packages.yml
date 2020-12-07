@@ -1,2 +1,2 @@
 packages:
- - git: "https://github.com/mikaelene/dbt-utils-sqlserver.git"
+ - git: "https://github.com/larsjohanssonblank/dbt-utils-sqlserver.git"
